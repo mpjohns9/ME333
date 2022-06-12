@@ -1,0 +1,144 @@
+\documentclass{article}
+\usepackage[utf8]{inputenc}
+\usepackage{enumitem}
+\usepackage{listings}
+\usepackage{amsmath,amssymb}
+
+\lstset{
+    language=C,
+    showstringspaces=false,
+    breaklines=true
+}
+
+
+
+\title{ME 333 Homework 3}
+\author{Marshall Johnson}
+\date{January 25, 2022}
+
+\begin{document}
+
+\maketitle
+
+\section*{Chapter 3 Exercises}
+
+\begin{enumerate}[label=\textbf{\arabic*})]
+    \item \textbf{Convert the following virtual addresses to physical addresses, and indicate whether the
+    address is cacheable or not, and whether it resides in RAM, flash, SFRs, or boot flash.} \\
+
+    \begin{enumerate}[label=\textbf{\alph*}.]
+        \item \textbf{0x80000020} --- 0x00000020 | Cacheable | RAM
+        \item \textbf{0xA0000020} --- 0x00000020 | Not Cacheable | RAM
+        \item \textbf{0xBF800001} --- 0x0F800001 | Not Cacheable | SFRs
+        \item \textbf{0x9FC00111} --- 0x1FC00111 | Cacheable | Boot Flash
+        \item \textbf{0x9D001000} --- 0x1D001000 | Cacheable | Program Flash
+    \end{enumerate}
+
+    \setcounter{enumi}{2}
+    \item \textbf{Refer to the Memory Organization section of the Data Sheet and Figure 2.1.} \\
+    
+    \begin{enumerate}[label=\textbf{\alph*}.]
+        \item \textbf{Referring to the Data Sheet, indicate which bits, 0-31, can be used as input/outputs for
+        each of Ports B through G. For the PIC32MX795F512H in Figure 2.1, indicate which
+        pin corresponds to bit 0 of port E (this is referred to as RE0).} 
+
+        \begin{itemize}
+            \item Port B: 0-15
+            \item Port C: 12-15
+            \item Port D: 0-11
+            \item Port E: 0-7
+            \item Port F: 0-1; 3-5
+            \item Port G: 2-3; 6-9
+            \item Bit 0 of Port E = Pin 60
+        \end{itemize}
+
+        \pagebreak
+        \item \textbf{The SFR INTCON refers to “interrupt control.” Which bits, 0-31, of this SFR are
+        unimplemented? Of the bits that are implemented, give the numbers of the bits and
+        their names.} \\
+        \begin{itemize}
+            \item Unimplemented: 5-7; 11; 13-15; 17-31
+            \item Implemented:
+            \begin{itemize}
+                \item 0-4: INT0EP/INT1EP/INT2EP/INT3EP/INT4EP
+                \item 8-10: TPC$<$2:0$>$
+                \item 12: MVEC
+                \item 16: SS0
+            \end{itemize}
+        \end{itemize}
+    
+    \end{enumerate}
+
+    \setcounter{enumi}{6}
+    \item \textbf{The processor.o file linked with your simplePIC project is much larger than your final
+    .hex file. Explain how that is possible.} \\
+
+    The processor.o file contains vitrual memory addresses for the PIC32's SFRs. This is a lot of information
+    since multiple VAs can map to the same PA. After the linker takes object files and outputs a large .elf file, 
+    the final step is to create a stripped down .hex file, which is significantly smaller.
+
+    \item \textbf{The building of a typical PIC32 program makes use of a number of files in the XC32
+    compiler distribution. Let us look at a few of them.} \\
+
+    \begin{enumerate}[label=\textbf{\alph*}.]
+        \item \textbf{Look at the assembly startup code pic32-libs/libpic32/startup/crt0.S. Although
+        we are not studying assembly code, the comments help you understand what the
+        startup code does. Based on the comments, you can see that this code clears the RAM
+        addresses where uninitialized global variables are stored, for example. Find and list
+        the line(s) of code that call the user’s main function when the C runtime startup
+        completes.}
+
+        Lines 522-526
+
+        \item \textbf{Using the command xc32-nm -n processor.o, give the names and addresses of the
+        five SFRs with the highest addresses.}
+        \begin{itemize}
+            \item bf88cb4c A C2FIFOCI31INV
+            \item bfc02ff0 A DEVCFG3
+            \item bfc02ff4 A DEVCFG2
+            \item bfc02ff8 A DEVCFG1
+            \item bfc02ffc A DEVCFG0
+        \end{itemize}
+
+        \pagebreak
+        \item \textbf{Open the file p32mx795f512h.h and go to the declaration of the SFR SPI2STAT and its
+        associated bit feld data type \_\_SPI2STATbits\_t. How many bit fields are defined?
+        What are their names and sizes? Do these coincide with the Data Sheet?} \\
+
+        10 bit fields defined (not including the empty fields): \\
+
+        \textit{Name:Size}
+        \begin{itemize}
+            \item SPIRBF:1
+            \item SPITBF:1
+            \item SPITBE:1
+            \item SPIRBE:1
+            \item SPIROV:1
+            \item SRMT:1
+            \item SPITUR:1
+            \item SPIBUSY:1
+            \item TXBUFELM:5
+            \item RXBUFELM:5
+        \end{itemize}
+
+        These coincide with the Data Sheet.
+    \end{enumerate}
+
+    \item \textbf{Give three C commands, using TRISDSET, TRISDCLR, and TRISDINV, that set bits 2
+    and 3 of TRISD to 1, clear bits 1 and 5, and flip bits 0 and 4.}
+
+    \begin{lstlisting}
+
+        TRISDSET = 0b1100;
+
+        TRISDCLR = 0b100010;
+
+        TRISDINV = 0b10001;
+
+    \end{lstlisting}
+
+\end{enumerate}
+
+
+
+\end{document}

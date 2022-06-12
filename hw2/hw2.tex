@@ -1,0 +1,192 @@
+\documentclass{article}
+\usepackage[utf8]{inputenc}
+\usepackage{enumitem}
+\usepackage{amsmath,amssymb}
+
+
+
+\title{ME 333 Homework 2}
+\author{Marshall Johnson}
+\date{January 18, 2022}
+
+\begin{document}
+
+\maketitle
+
+\section*{Chapter 2 Exercises}
+
+\begin{enumerate}[label=\textbf{\arabic*})]
+    \setcounter{enumi}{2}
+    \item \textbf{Describe the four functions that pin 12 of the PIC32MX795F512H can have. Is it 5 V tolerant?} \\
+    
+    Pin 12 of the PIC32MX795F512H has the following functions:
+    \begin{enumerate}[label=\textbf{\alph*}.]
+        \item AN4: Analog-to-digital input --- allows for monitoring of 
+        analog voltage values (typically sensor inputs).
+        \item C1IN-: Comparator negative input -- compares two analog input voltages
+        and determines which is larger
+        \item CN6: Change notification --- can generate an interrupt when input 
+        voltage changes from high to low, or vice versa.
+        \item RB4: Digital I/O --- allows for reading or output of a digital voltage
+    \end{enumerate}
+
+    \textbf{It is not 5V tolerant.}
+
+    \item \textbf{Referring to the Data Sheet section on I/O Ports, what is the name of the SFR you have
+    to modify if you want to change pins on PORTC from output to input?} \\
+
+    SFR TRISC
+
+    \item \textbf{The SFR CM1CON controls comparator behavior. Referring to the Memory
+    Organization section of the Data Sheet, what is the reset value of CM1CON in
+    hexadecimal?} \\
+
+    0x00C3
+
+    \pagebreak
+    \item \textbf{In one sentence each, without going into detail, explain the basic function of the
+    following items shown in the PIC32 architecture block diagram Figure 2.2: SYSCLK,
+    PBCLK, PORTA to PORTG (and indicate which of these can be used for analog input on
+    the NU32’s PIC32), Timer1 to Timer5, 10-bit ADC, PWM OC1-5, Data RAM, Program Flash Memory, 
+    and Prefetch Cache Module.} \\
+
+    \begin{enumerate}[label=\textbf{\alph*}.]
+        \item SYSCLK: System clock; clocks CPU at maximum frequency of 80 MHz.
+        \item PBCLK: Peripheral bus clock; Frequency set to SYSCLK divided by 1, 2, 4, or 8. Setting lower than SYSCLK's saves power.
+        \item PORTA to PORTG: Registers that allow I/O pins to be accessed (bidirectional I/O ports) 
+        (PORTA is missing on PIC32MX795F512H); Only PORTB can be used for analog input on NU32's PIC32.
+        \item Timer1 to Timer5: Counts the number of pulses of a signal.
+        \item 10-bit ADC: Analog-to-digital converter that can monitor up to 16 analog voltage values via 16 different pins.
+        \item PWM OC1-5: Output compare pins generally used to generate PWM signals that can control motors or 
+        create analog voltage output.
+        \item Data RAM: Memory type that stores temporary data (128 KB).
+        \item Program Flash Memory: More plentiful source of memory but slower to read and write (512 KB).
+        \item Prefetch Cache Module: Stores recently executed program instructions, and can even run ahead 
+        of current instruction to prefetch future instructions. 
+    \end{enumerate}
+
+    \item \textbf{List the peripherals that are not clocked by PBCLK.} \\
+    
+    \begin{itemize}
+        \item USB
+        \item CAN1, CAN2
+        \item Ethernet
+        \item DMAC
+        \item ICD
+    \end{itemize}
+
+    \item \textbf{If the ADC is measuring values between 0 and 3.3 V, what is the largest voltage
+    difference that it may not be able to detect? (It’s a 10-bit ADC.)} \\
+
+    $3.3 V/2^{10} = 0.0032 V$
+
+    \item \textbf{Refer to the Reference Manual chapter on the Prefetch Cache. What is the maximum
+    size of a program loop, in bytes, that can be completely stored in the cache?} \\
+
+    256 bytes
+
+    \item \textbf{Explain why the path between flash memory and the prefetch cache module is 128 bits
+    wide instead of 32, 64, or 256 bits.} \\
+
+    The prefetch cache module stores recently executed instructions to ultimately improve performance
+    by allowing the CPU quicker access than with flash memory. Instructions are placed in a 16-byte 
+    wide prefetch cache buffer in preparation for execution. As such, each set of instructions occupies 
+    128 bits of memory, which is why the path between flash memory and the prefetch cache module is 
+    128 bits wide. This size of data path also provides the same bandwidth as a 32-bit path running 
+    at 4x frequency.
+
+    \item \textbf{Explain how a digital output could be confgured to swing between 0 and 4 V, even
+    though the PIC32 is powered by 3.3 V.}
+
+    An output pin can be configured as \textbf{open drain}. This increases the range of voltages
+    the pin can produce by allowing the pin's transistor to pull voltage down to 0V (sink current) 
+    or up to as high as 5.5V (turn off).  
+
+    \item \textbf{PIC32’s have increased their flash and RAM over the years. What is the maximum
+    amount of flash memory a PIC32 can have before the current choice of base addresses in
+    the physical memory map (for RAM, flash, peripherals, and boot flash) would have to be
+    changed? What is the maximum amount of RAM? Give your answers in bytes in
+    hexadecimal.}
+
+    \begin{itemize}
+        \item Flash Memory: 41.9 MB | 0x02800000
+        \item RAM: 486.5 MB | 0x1D000000
+    \end{itemize}
+
+    \item \textbf{Examine the Special Features section of the Data Sheet.} \\
+    
+    \begin{enumerate}[label=\textbf{\alph*}.]
+        \item \textbf{If you want your PBCLK frequency to be half the frequency of SYSCLK, which bits
+        of which Device Confguration Register do you have to modify? What values do you
+        give those bits?} \\
+        
+        \begin{itemize}
+            \item Bits 13-12 (FPBDIV$<$1:0$>$: Peripheral Bus Clock Divisor Default Value bits) of Register 28-2 (DEVCFG1)
+            \item Set value to 01
+        \end{itemize} 
+
+        \item \textbf{Which bit(s) of which SFR set the watchdog timer to be enabled? Which bit(s) set
+        the postscale that determines the time interval during which the watchdog must be
+        reset to prevent it from restarting the PIC32? What values would you give these bits
+        to enable the watchdog and to set the time interval to be the maximum?} \\
+
+        \begin{itemize}
+            \item Watchdog timer: Bit 23 of the FWDTEN SFR (Register 28-2) sets the watchdog timer to 
+            be enabled
+            \item Postscale: Bits 20-16 set the postscale that determines the time interval during 
+            which the watchdog must be reset to prevent it from restarting the PIC32
+            \item Set Bit 23 to 1 to enable the watchdog and Bits 20-16 to 10100 or greater to set
+            the time interval to be the maximum (since combinations not shown in the data sheet 
+            default to 10100).
+        \end{itemize}
+
+        \item \textbf{The SYSCLK for a PIC32 can be generated several ways, as discussed in the
+        Oscillator chapter in the Reference Manual and the Oscillator Confguration section
+        in the Data Sheet. The PIC32 on the NU32 uses the (external) primary oscillator in
+        HS mode with the phase-locked loop (PLL) module. Which bits of which device
+        confguration register enable the primary oscillator and turn on the PLL module?} \\
+
+        \begin{itemize}
+            \item Setting Bits 9-8 of Register 28-2 (DEVCFG1) to 10 will enable HS mode. 
+            Bits 2-0 of the same register set to 011 will enable the primary oscilaltor with the 
+            PLL module.
+        \end{itemize}
+        
+    \end{enumerate}
+
+    \item \textbf{Your NU32 board provides four power rails: GND, regulated 3.3 V, regulated 5 V, and
+    the unregulated input voltage (e.g., 6 V). You plan to put a load from the 5 V output to
+    ground. If the load is modeled as a resistor, what is the smallest resistance that would be
+    safe? An approximate answer is fine. In a sentence, explain how you arrived at the
+    answer} \\
+
+    16-17 $\Omega$ would be the smallest resistance I would deem safe. Anything lower could cause overheating, 
+    which would be best avoided. This range would allow for no more than about 300 mA draw from the NU32 --- 
+    staying well below the 800 mA limit.
+
+    \pagebreak
+    \item \textbf{The NU32 could be powered by different voltages. Give a reasonable range of voltages
+    that could be used, minimum to maximum, and explain the reason for the limits.}
+
+    A reasonable voltage range to power the NU32 is 2.3 to 9 V. The NU32 requires at least 2.3 V, but also
+    has a 5 V regulator to handle voltages above the ideal 2.3 to 3.6 V range. However, using a higher
+    voltage than 9 V is not recommended, since the regulators will heat up. 
+
+    \item \textbf{Two buttons and two LEDs are interfaced to the PIC32 on the NU32. Which pins are
+    they connected to? Give the actual pin numbers, 1-64, as well as the name of the pin
+    function as it is used on the NU32. For example, pin 37 on the PIC32MX795F512H
+    could have the function D+ (USB data line) or RG2 (Port G digital input/output), but
+    only one of these functions could be active at a given time.} \\
+
+    \begin{itemize}
+        \item LEDs: Pin 58 \& 59 --- RF0 (Digital I/O) and RF1 (Digital I/O), respectively
+        \item Buttons: Pin 7 \& 55 --- $\overline{MCLR}$ (Master clear reset pin) and 
+        RD7 (Digital I/O), respectively
+    \end{itemize}
+
+
+\end{enumerate}
+
+
+
+\end{document}

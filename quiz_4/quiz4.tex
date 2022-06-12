@@ -1,0 +1,64 @@
+\documentclass{article}
+\usepackage[utf8]{inputenc}
+\usepackage{enumitem}
+\usepackage{listings}
+\usepackage[T1]{fontenc}
+\usepackage{geometry}
+
+\geometry{
+ a4paper,
+ left=20mm,
+ right=20mm,
+ top=20mm,
+ bottom=20mm
+ }
+
+\lstset{
+    language=C,
+    showstringspaces=false,
+    breaklines=true
+}
+
+
+\title{ME 333 Quiz 4: Chapter 4}
+\author{Marshall Johnson}
+\date{February 3, 2022}
+
+\begin{document}
+
+\maketitle
+
+\section*{Quiz 4}
+
+\begin{enumerate}[label=\textbf{\arabic*})]
+    \item \textbf{What is the purpose of the NU32\_Startup() function?} \\
+    
+    The NU32\_Startup() function configures the PIC32 and NU32 library. The process includes
+    the following tasks: \\
+    \begin{enumerate}
+        \item configures prefetch cache module and flash wait cycles for maximum performance
+        \item configures PIC32 for multi-vector interrupt mode
+        \item disables JTAG debugging 
+        \item configures RF0 and RF1 as digital outputs
+        \item configures UART3
+        \item enables interrupts
+    \end{enumerate}
+
+    \item \textbf{Why doesn’t the following command work as intended?  \\
+    LCD\_WriteString(“Hello world 12345678”)} \\
+
+    The LCD only takes 16 characters per line. Since the string input here is more than 16 characters,
+    some will not be displayed.
+
+    \item \textbf{What does the command line instruction make clean do?} \\
+    
+    This command removes the files that were created when the project was initially built. This
+    allows \textit{make} to be run again from scratch.
+
+
+
+\end{enumerate}
+
+
+
+\end{document}

@@ -1,0 +1,70 @@
+\documentclass{article}
+\usepackage[utf8]{inputenc}
+\usepackage{enumitem}
+\usepackage{listings}
+\usepackage[T1]{fontenc}
+\usepackage{geometry}
+\usepackage{amsmath}
+
+\geometry{
+ a4paper,
+ left=20mm,
+ right=20mm,
+ top=20mm,
+ bottom=20mm
+ }
+
+\lstset{
+    language=C,
+    showstringspaces=false,
+    breaklines=true
+}
+
+
+\title{ME 333 Quiz 8 \\ [1ex] \large Brushed DC Motors}
+\author{Marshall Johnson}
+\date{March 3, 2022}
+
+\begin{document}
+
+\maketitle
+
+\section*{Quiz 8}
+
+\begin{enumerate}[label=\textbf{\arabic*})]
+    \item \textbf{Write the motor power equation, derived in terms of V, $\tau$, I, $\omega$, L, and R: } \\
+
+    $$\text{IV}_\text{motor} = \tau\omega + I^2R + LI\frac{dI}{dt}$$
+
+    \item \textbf{Describe what each part of the equation in \#1 relates to:} \\
+    
+    \begin{flalign*}
+        \tau\omega \rightarrow \text{mechanical power}&&        
+    \end{flalign*}
+    \begin{flalign*}
+        I^2R \rightarrow \text{heat}&&        
+    \end{flalign*}
+    \begin{flalign*}
+        LI\frac{dI}{dt} \rightarrow \text{power into (charging) or out of (discharging) inductor}&&        
+    \end{flalign*}
+
+    \item \textbf{Draw the speed-torque curve for a motor at 10V, with R = 10ohm, P = 10W, kt = 0.1Nm/A = 
+    0.1Vs/rad, and label the max continuous region. } \\
+    \\
+    \\
+    \\
+    \\
+    \\
+    \\
+    \\
+    \\
+    \\
+    
+    \item \textbf{Draw a motor connected to four switches, built in an h-bridge configuration. Label the switches 
+    that would need to close to make the motor rotate in one direction (either CW or CCW) and the 
+    switches to close to make the motor rotate in the other direction. } \\
+ 
+    
+\end{enumerate}
+
+\end{document}

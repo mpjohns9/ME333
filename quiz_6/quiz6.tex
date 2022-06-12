@@ -1,0 +1,83 @@
+\documentclass{article}
+\usepackage[utf8]{inputenc}
+\usepackage{enumitem}
+\usepackage{listings}
+\usepackage[T1]{fontenc}
+\usepackage{geometry}
+\usepackage{amsmath}
+
+\geometry{
+ a4paper,
+ left=20mm,
+ right=20mm,
+ top=20mm,
+ bottom=20mm
+ }
+
+\lstset{
+    language=C,
+    showstringspaces=false,
+    breaklines=true
+}
+
+
+\title{ME 333 Quiz 6 \\ [1ex] \large IO, Counters/Timers, OC, Analog Input}
+\author{Marshall Johnson}
+\date{February 17, 2022}
+
+\begin{document}
+
+\maketitle
+
+\section*{Quiz 6}
+
+\begin{enumerate}[label=\textbf{\arabic*})]
+    \item \textbf{Use the IO SFRs to make pin CN14 an input and enable the pullup resistor:} \\
+    
+    \begin{lstlisting}
+        // Make CN14 (RD5) input
+        TRISDbits.TRISD5 = 1;
+
+        // Enable pull-up resistor
+        CNPUEbits.CNPUE14 = 1;
+    \end{lstlisting}
+
+    \item \textbf{List two differences between the CoreTimer and Timer2:} \\
+        \begin{enumerate}
+            \item Timer2 is a peripheral rather than part of the MIPS32 CPU
+            \item Timer2 can increment once every \textit{N} PBCLK cycles rather than
+            every two SYSCLK cycles
+        \end{enumerate}
+
+    \item \textbf{Timer1 has been setup to count external pulses, and can have a prescaler of N = 1, 8, 64, or 
+    256. What is the largest number of input pulses that can be counted before the timer rolls over, 
+    and what prescaler N and period register PR1 are used to count to this number?} \\
+
+    \textbf{16,777,216} --- To count this number of pulses, a prescaler N = 256 and period register PR1 = 65535 are used.
+
+    \item \textbf{OC4 and Timer2 are used to create 2000 Hz PWM with 20\% duty cycle.} \\
+    
+    \begin{enumerate}[label=\textbf{\alph*}.]
+        \item \textbf{Assuming you use a prescaler of N = 2 and a PBCLK of 80 MHz, what is the value of 
+        PR2?} \\
+
+        $$40000 = (\text{PR2} + 1) * 2$$
+        \vspace{0.5em}
+        $$\text{PR2} = 19999$$
+
+        \item \textbf{What is the value of OC4RS?} \\
+        
+        $$\frac{\text{OC4RS}}{19999 + 1} * 100\% = 20\%$$
+        \vspace{0.5em}
+        $$\text{OC4RS = 4000}$$
+    \end{enumerate}
+
+    \pagebreak
+    \item \textbf{Describe and draw a picture of the two steps in the process of reading an analog input.}
+
+
+\end{enumerate}
+
+
+
+\end{document}

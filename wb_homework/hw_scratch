@@ -1,0 +1,25 @@
+7.  a. 107
+    b. 53
+    c. 61
+    d. 63
+
+8.  unsigned char: 0 to 255
+    short: -32,768 to 32,767
+    double: 1.7E +/- 308
+
+10. An unsigned integer does not include negative values in its range.
+    Signed integers include negative values. The range for an unsigned integer is 0 to 2^32 - 1, while the range for a signed integer is -(2^31) to 2^31 - 1.
+
+11. a. Using chars rather than ints uses less memory and can result in faster computation time. However, with chars, the range of integer values is more limited and can lead to integer overflow.
+    b. Using float rather than double uses less memory and can result in faster computation time. However doubles will give greater precision in representation. 
+    c. Using chars rather than floats uses less memory and can result in faster computation time. However, chars are limited to smaller numbers and can lead to integer overflow. Using floats will allow for integer math with larger numbers. That said, floats will lead to longer computation time and can lead to decreased precision.
+
+16. long long int
+
+17. a. unknown for all memory locations
+    b. 0xB0..0xB3: unknown; 0xB4..0xB7: unknown; 0xB8: 0xB0; 0xB9: unknown
+    c. 0xB0..0xB3: unknown; 0xB4..0xB7: unknown; 0xB8: 0xB0; 0xB9: unknown
+    d. 0xB0..0xB3: 0xAE; 0xB4..0xB7: unknown; 0xB8: 0xB0; 0xB9: unknown
+    e. 0xB0..0xB3: 0xAE; 0xB4..0xB7: unknown; 0xB8: 0xB0; 0xB9: 0xB0
+    f. 0xB0..0xB3: 0x12; 0xB4..0xB7: unknown; 0xB8: 0xB0; 0xB9: 0xB0
+    g. 0xB0..0xB3: 0x12; 0xB4..0xB7: 0x12; 0xB8: 0xB0; 0xB9: 0xB0

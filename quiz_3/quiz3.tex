@@ -1,0 +1,66 @@
+\documentclass{article}
+\usepackage[utf8]{inputenc}
+\usepackage{enumitem}
+\usepackage{listings}
+\usepackage[T1]{fontenc}
+\usepackage{geometry}
+
+\geometry{
+ a4paper,
+ left=20mm,
+ right=20mm,
+ top=20mm,
+ bottom=20mm
+ }
+
+\lstset{
+    language=C,
+    showstringspaces=false,
+    breaklines=true
+}
+
+
+\title{ME 333 Quiz 3: Chapter 3}
+\author{Marshall Johnson}
+\date{January 27, 2022}
+
+\begin{document}
+
+\maketitle
+
+\section*{Quiz 3}
+
+\begin{enumerate}[label=\textbf{\arabic*})]
+    \item \textbf{The PIC32 has four types of memory: data RAM, program flash, SFRs, and boot flash. Which 
+    is cacheable, which is not? Why?} \\
+
+    Data RAM, program flash, and boot flash can all be cacheable. However, the PIC32 is configured to access 
+    program flash via cache, since flash memory is slow, and RAM without the cache, since RAM is fast.
+    SFRs are not cacheable, since they correspond to physical devices --- if they were cacheable, the
+    CPU could read outdated values.
+
+    \item \textbf{For the following SFR, how many implemented bitfields are there? After reset, which bitfields 
+    are initially set?} \\
+
+    There are \textbf{8 implemented bitfields}. 0-3 and 12-15 are initially set after reset (although bit 0
+    technically doesn't exist). This means the fields that are set include: TRISC1, TRISC2, TRISC3, TRISC12,
+    TRISC13, TRISC14, and TRISC15.
+
+    \item \textbf{What is the function of the processor.o file?} \\
+    
+    The processor.o file is a model specific mapping of virtual memory addresses to PIC32 SFRs.
+    
+    \item \textbf{The prefetch module has a 128 bit wide path to Flash memory, but the rest of the bus matrix 
+    inside the PIC32 is only 32 bits wide. Why?} \\
+
+    The prefecth module has a 128 bit wide path to flash memory to store sets of instructions prior to the CPU
+    requesting them. This increases performance by allowing the prefetch cache to run ahead of execution
+    despite the slow flash load times. The 128 bit path allows for four sets of instructions to be stored 
+    in advance of being requested by the CPU.
+
+
+\end{enumerate}
+
+
+
+\end{document}

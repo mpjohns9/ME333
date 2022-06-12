@@ -1,0 +1,94 @@
+\documentclass{article}
+\usepackage[utf8]{inputenc}
+\usepackage{enumitem}
+\usepackage{listings}
+\usepackage[T1]{fontenc}
+\usepackage{geometry}
+\usepackage{amsmath}
+
+\geometry{
+ a4paper,
+ left=20mm,
+ right=20mm,
+ top=20mm,
+ bottom=20mm
+ }
+
+\lstset{
+    language=C,
+    showstringspaces=false,
+    breaklines=true
+}
+
+
+\title{ME 333 Quiz 7 \\ [1ex] \large PID Control}
+\author{Marshall Johnson}
+\date{February 24, 2022}
+
+\begin{document}
+
+\maketitle
+
+\section*{Quiz 7}
+
+\begin{enumerate}[label=\textbf{\arabic*})]
+    \item \textbf{Give pseudocode for a basic PID controller (without integrator anti-windup). 
+    There are functions get\_ref() and get\_sensor() to call, and you can make others if you want. 
+    There are already global variables, and you can add more: \\
+    static volatile float eint = 0; \\ 
+    static volatile float eprevious = 0; \\  
+    The ISR is already setup to run at 1kHz:} \\
+
+     \begin{lstlisting}
+
+        static volatile float err = 0;
+        static volatile float edot = 0;
+        static volatile float u = 0;
+        static volatile float s = 0;
+        static volatile float r = 0;
+        __ISR(timer at 1kHz) {
+            s = get_sensor();               // read sensor value
+            r = get_ref();                  // get reference signal
+            err = r - s;                    // calculate error
+            edot = err - errprevious;       // error difference
+            eint = eint + err;              // error sum
+            u = Kp*err + Ki*eint + Kd*edot; // calculate control signal
+            send_control(u);                // send control signal
+            eprevious = err;                // update error
+            interrupt_flag = 0;             // clear interrupt flag
+        }
+     \end{lstlisting}
+
+     \item \textbf{Explain what integrator anti-windup is: } \\
+     
+     When integrator error is allowed to build up to large values, a large control signal
+     of opposite sign is created to dissipate the error. To reduce oscillation associated
+     with this behavior, \textbf{integrator anti-windup} can be implemented by placing 
+     bounds on the integrator error (\textit{eint}).
+
+     \item \textbf{You have picked Kp, Ki, and Kd gains. } \\
+     
+     \begin{enumerate}[label=\textbf{\alph*}.]
+        \item \textbf{The response has too much overshoot. Which gain could you increase to reduce the 
+        overshoot?} \\
+
+        $K_{d}$
+
+        \item \textbf{The response has too much overshoot. Which gain could you decrease to reduce the 
+        overshoot?} \\
+
+        $K_{p}$
+
+        \item \textbf{The response has the right overshoot and settling time characteristics, but too much 
+        steady-state error. Which gain could you increase to reduce the steady-state error?} \\
+
+        $K_{p}$
+     \end{enumerate}
+
+    
+    
+\end{enumerate}
+
+
+
+\end{document}

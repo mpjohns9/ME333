@@ -1,0 +1,81 @@
+\documentclass{article}
+\usepackage[utf8]{inputenc}
+\usepackage{enumitem}
+\usepackage{listings}
+\usepackage[T1]{fontenc}
+\usepackage{geometry}
+\usepackage{amsmath}
+
+\geometry{
+ a4paper,
+ left=20mm,
+ right=20mm,
+ top=20mm,
+ bottom=20mm
+ }
+
+\lstset{
+    language=C,
+    showstringspaces=false,
+    breaklines=true
+}
+
+
+\title{ME 333 Quiz 9 \\ [1ex] \large Gears and Brushed DC Motor Control}
+\author{Marshall Johnson}
+\date{March 10, 2022}
+
+\begin{document}
+
+\maketitle
+
+\section*{Quiz 9}
+
+\begin{enumerate}[label=\textbf{\arabic*})]
+    \item \textbf{Gears are often used to reduce motor speed and increase output torque. List two 
+    complications that gears add to a system and why they are disadvantageous: } \\
+
+    \begin{itemize}
+        \item Efficiency: Some power is lost due to friction between teeth of the gears. Total efficiency
+        is the product of each stage in a multi-stage gearhead. Thus, high ratio gearheads can have low efficiency.
+        \item Backlash: Backlash is the angle the output shaft can rotate without the input shaft moving.
+        Gear teeth need some play to avoid jamming when they mesh. As a result, backlash is 
+        introduced due to tolerances in manufacturing. This can be a serious issue in controlling endpoint motions.
+    \end{itemize}
+
+    \item \textbf{Draw a motor connected to 4 switches in an h-bridge configuration, label the switches 1 
+    through 4: } \\
+    \\
+    \\
+    \\
+    \\
+    \\
+    \\
+    \\
+    \\
+
+    \item \textbf{Pretend a pair of switches has been closed for a long time while the motor has been stalled. 
+    The switches are then opened. Add two flyback diodes to protect the two switches from sparks 
+    to your picture in \#1, clearly showing which switches just opened and the relative position of 
+    the diodes that protect them. } \\
+    \\
+    \\
+    \\
+    \\
+    \\
+    \\
+    \\
+    \\
+
+    \item \textbf{Why does a current control loop typically occur much more frequently than a position control 
+    loop? } \\
+
+    The current loop must have a faster response time than the motion control loop. Otherwise, the current loop will 
+    have little effect on the motion control loop. The motion control loop takes desired and actual position and outputs
+    a current based on those inputs. The current control loop attempts to deliver the current requested ny the outer
+    loop (motion control), taking actual current as an input and outputting a voltage.
+
+
+\end{enumerate}
+
+\end{document}

@@ -1,0 +1,130 @@
+\documentclass{article}
+\usepackage[utf8]{inputenc}
+\usepackage{enumitem}
+
+
+\title{ME 333 Homework 1}
+\author{Marshall Johnson}
+\date{January 11, 2022}
+
+\begin{document}
+
+\maketitle
+
+\section*{A Crash Course in C --- Exercises Cont.}
+
+\begin{enumerate}[label=\textbf{\arabic*})]
+    \setcounter{enumi}{17}
+    \item \textbf{Invoking the gcc compiler with a command like gcc myprog.c -o myprog actually initiates four steps. What are the four steps called, and what is the output of each step?}
+    \begin{enumerate}[label=\Roman*.]
+        \item Preprocessing --- Outputs source code equivalent to original .c program with comments removed. This step also performs actions when encountering preprocessor commands indicated by the \# character, such as \textit{define} and \textit{include}.
+        \item Compiling --- Outputs \textbf{assembly code} specific to the processor. This turns the C code into instructions for the processor to perform certain corresponding actions.
+        \item Assembling --- Converts assembly instructions into machine-level \textbf{binary object code} (dependent on processor).
+        \item Linking --- Outputs single \textbf{executable file} from 1+ object code files.
+    \end{enumerate}
+    
+    \item \textbf{What is main’s return type, and what is the meaning of its return value?} \\
+    \\
+    The return type of the main function is typically int. Usually the return is 0, which would indicate the program executed successfully (i.e., without error). If an integer is not returned, an error ocurred.
+    
+    \setcounter{enumi}{20}
+    \item \textbf{Consider three unsigned chars, i, j, and k, with values 60, 80, and 200, respectively. Let sum also be an unsigned char. For each of the following, give the value of sum after performing the addition.}
+    \begin{enumerate}[label=\textbf{\alph*}.]
+        \item sum = i+j = \textbf{140}
+        \item sum = i+k = \textbf{4}
+        \item sum = j+k = \textbf{24}
+    \end{enumerate}
+    
+    \pagebreak
+    \item \textbf{For the variables defned as \\ \\
+    int a=2, b=3, c; \\
+    float d=1.0, e=3.5, f; \\ \\
+    give the values of the following expressions.}
+    \begin{enumerate}[label=\textbf{\alph*}.]
+        \item f = a/b = \textbf{0.000}
+        \item f = ((float) a)/b = \textbf{0.667}
+        \item f = (float) (a/b) = \textbf{0.000}
+        \item c = e/d = \textbf{3}
+        \item c = (int) (e/d) = \textbf{3}
+        \item f = ((int) e)/d = \textbf{3.000}
+    \end{enumerate}
+
+    % \item \textbf{In each snippet of code in (a)-(d), there is an arithmetic error in the fnal assignment of ans. What is the fnal value of ans in each case?}
+    % \begin{enumerate}[label=\textbf{\alph*}.]
+    %     \item 0.0
+    %     \item 1
+    %     \item 0
+    %     \item -inf
+    % \end{enumerate}
+
+    % \item \textbf{}
+    \setcounter{enumi}{26}
+    \item \textbf{You have written a large program with many functions. Your program compiles without
+    errors, but when you run the program with input for which you know the correct output,
+    you discover that your program returns the wrong result. What do you do next? Describe
+    your systematic strategy for debugging} \\ \\
+    To debug, I would first test each of the functions I have written to make sure 
+    they are all working as expected. If I discover one or more that doesn't behave 
+    as expected, I would then examine those functions closely to determine where the 
+    error exists and resolve accordingly. After debugging individual functions, I 
+    would compile and run again. If the error(s) persist, as well as throughout the 
+    previously mentioned process, I would look for common errors such as data types, 
+    and indexing. I would ensure all data types are what I intended and consistent. 
+    I would check specifically for values called by index from arrays and ensure 
+    all indices are within the bounds of the array. Additionally, I would check to 
+    ensure that any numbers I'm using are within the limits of the data type they 
+    are assigned and nothing unexpected is happening.
+    \item \textbf{Erase all the comments in invest.c, recompile, and run the program to make sure it still
+    functions correctly. You should be able to recognize what is a comment and what is not.
+    Turn in your modifed invest.c code.} \\ \\
+    See invest\_edit.c for modified invest.c program with comments removed.
+
+    \pagebreak
+    \setcounter{enumi}{29}
+    \item \textbf{Consider this array definition and initialization: \\ \\
+    int x[4] = \{4, 3, 2, 1\}; \\ \\
+    For each of the following, give the value or write “error/unknown” if the compiler will
+    generate an error or the value is unknown.}
+    \begin{enumerate}[label=\textbf{\alph*}.]
+        \item 3
+        \item 4
+        \item 2
+        \item 6
+        \item unknown/error
+        \item unknown/error
+        \item 2
+    \end{enumerate}
+
+    \item \textbf{For the (strange) code below, what is the fnal value of i? Explain why. \\ \\
+    int i,k=6; \\
+    i = 3*(5$>$1) + (k=2) + (k==6);} \\ \\
+    The final value of i is \textbf{5}. The first term becomes 3*1, since the truth value of 5$>$1 is equal to 1 (True). The next term is 2 and sets k equal to this value. Last, the truth value of k==6 is 0 (False), since k was set to 2 in the previous term. This leaves 3*1 + 2 + 0 = 5.
+
+    \item \textbf{As the code below is executed, give the value of c in hex at the seven break points
+    indicated, (a)-(g).}
+    \begin{enumerate}[label=\textbf{\alph*}.]
+        \item 0xF2
+        \item 0x01
+        \item 0x0F
+        \item 0x0E
+        \item 0x01
+        \item 0x68
+        \item 0x00
+    \end{enumerate}
+
+    \setcounter{enumi}{33}
+    \item \textbf{Write a program to generate the ASCII table for values 33 to 127. The output should be
+    two columns: the left side with the number and the right side with the corresponding
+    character. Turn in your code and the output of the program.} \\ \\
+    See ascii.c
+
+    \item \textbf{We will write a simple bubble sort program to sort a string of text in ascending order
+    according to the ASCII table values of the characters.} \\ \\
+    See bubble.c
+
+
+\end{enumerate}
+
+
+
+\end{document}

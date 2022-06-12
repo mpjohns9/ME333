@@ -1,0 +1,148 @@
+\documentclass{article}
+\usepackage[utf8]{inputenc}
+\usepackage{enumitem}
+\usepackage{listings}
+\usepackage{amsmath,amssymb}
+\usepackage{geometry}
+
+\geometry{
+ a4paper,
+ left=38mm,
+ right=38mm,
+ top=38mm,
+ bottom=38mm
+ }
+
+\lstset{
+    language=C,
+    showstringspaces=false,
+    breaklines=true
+}
+
+
+
+\title{ME 333 Homework 4}
+\author{Marshall Johnson}
+\date{January 31, 2022}
+
+\begin{document}
+
+\maketitle
+
+\section*{Chapter 3 Exercises}
+
+\begin{enumerate}[label=\textbf{\arabic*})]
+    \setcounter{enumi}{3}
+    \item \textbf{Modify simplePIC.c so that both lights are on or off at the same time, instead of opposite
+    each other. Turn in only the code that changed.} \\
+
+    See simplePIC\_simul.c
+
+    \item \textbf{ Modify simplePIC.c so that the function delay takes an int cycles as an argument. The
+    for loop in delay executes cycles times, not a fixed value of 1,000,000. Then modify main
+    so that the first time it calls delay, it passes a value equal to MAXCYCLES. The next time it
+    calls delay with a value decreased by DELTACYCLES, and so on, until the value is less than
+    zero, at which time it resets the value to MAXCYCLES. Use \#define to define the constants
+    MAXCYCLES as 1,000,000 and DELTACYCLES as 100,000. Turn in your code.} \\
+
+    See simplePIC\_cycles.c
+
+\end{enumerate}
+
+\pagebreak
+\section*{Chapter 4 Exercises}
+
+\begin{enumerate}[label=\textbf{\arabic*})]
+    \item \textbf{Identify which functions, constants, and global variables in NU32.c are private to NU32.c
+    and which are meant to be used in other C fles.} \\
+
+    Private to NU32.c:
+    \begin{itemize}
+        \item DEBUG
+        \item FWDTEN
+        \item WDTPS
+        \item POSCMOD
+        \item FNOSC
+        \item FPLLMUL
+        \item FPLLIDIV
+        \item FPLLODIV
+        \item FPBDIV
+        \item UPLLEN
+        \item UPLLIDIV
+        \item FUSBIDIO
+        \item FVBUSONIO
+        \item FSOSCEN
+        \item BWP
+        \item ICESEL
+        \item FCANIO
+        \item FMIIEN
+        \item FSRSSEL
+        \item NU32\_DESIRED\_BAUD
+    \end{itemize} 
+
+    Meant for use in other files:
+    \begin{itemize}
+        \item NU32\_LED1\ LATFbits.LATF0
+        \item NU32\_LED2\ LATFbits.LATF1
+        \item NU32\_USER\ PORTDbits.RD7
+        \item NU32\_SYS\_FREQ
+        \item NU32\_Startup(void)
+        \item NU32\_ReadUART3(char * string, int maxLength)
+        \item NU32\_WriteUART3(const char * string)
+    \end{itemize}
+
+    \item \textbf{You will create your own libraries.} \\
+    
+    \begin{enumerate}[label=\textbf{\alph*}.]
+        \item See invest.c
+        \item Code: helper.c, helper.h, main\_2b.c \\
+        
+        All of the constant definitions, struct, and function prototypes were placed in the 
+        helper.h file to separate them from the implementation. The functions are implemented
+        in the helper.c file. This allows them to be accessed by users of the library,
+        but the implementation of the functions is kept private. The MAX\_YEARS constant is 
+        public, however, and can be modified by potential users. 
+        \item Code: calculate.c, calculate.h, io.c, io.h, main\_2c.c \\
+        
+        Both io.c and calculate.c have their corresponding header files io.h and calculate.h.
+        The functions that deal with input/output were placed in the io header file, with the 
+        implementation in the c file. Similarly, the function dealing with calculations is 
+        found in the calculations header file, with its implementation in the c file. The 
+        calculations.h file includes the io.h file, so the MAX\_YEARS constant and Investment
+        struct do not need to be redefined in the calculations header file. 
+        
+
+    \end{enumerate}
+
+    \setcounter{enumi}{3}
+    \item \textbf{Write a function, void LCD\_ClearLine(int ln), that clears a single line of the LCD (either
+    line zero or line one). You can clear a line by writing enough space (’ ’) characters to
+    fill it.} \\
+
+    Modified LCDwrite.c file has been uploaded to Canvas with implementation of LCD\_ClearLine function. 
+    Function is also included below:
+
+    \begin{lstlisting}
+        // Clears a line of the LCD screen
+        void LCD_ClearLine(int ln) {
+            char str[16] = "                ";
+
+            if (ln == 1 || ln == 0) {
+
+                LCD_Move(ln,0);
+                LCD_WriteString(str); // clear desired column
+                NU32_WriteUART3("\r\n");
+
+            }
+            else {
+                NU32_WriteUART3("Invalid input line for clear.");
+                return;
+            }
+    \end{lstlisting}
+
+
+\end{enumerate}
+
+
+
+\end{document}

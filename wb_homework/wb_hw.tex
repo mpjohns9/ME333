@@ -1,0 +1,167 @@
+\documentclass{article}
+\usepackage[utf8]{inputenc}
+\usepackage{enumitem}
+
+\title{ME 333: Winter Break Homework}
+\author{Marshall Johnson}
+\date{January 4, 2022}
+
+\begin{document}
+
+\maketitle
+
+\section*{A Crash Course in C --- Exercises}
+\begin{enumerate}[label=\textbf{\arabic*})]
+    \item  \textbf{Install C, create the HelloWorld.c program, and compile and run it.} \\ 
+    \\
+    See hello\_world\_demo.mp4
+    \item \textbf{Explain what a pointer variable is, and how it is different from a non-pointer variable.} \\ 
+    \\
+    A pointer variable stores the address of another variable. Pointer variables are allocated platform-dependent memory needed to store an address. Conversely, non-pointer variables are allocated memory based on their specific data type.
+    \item \textbf{Explain the difference between interpreted and compiled code.} \\
+    \\
+    The primary difference between interpreted and compiled code is when the program is turned into machine-code. Commands from interpreted programs are converted to machine-code and executed while the program is running. On the other hand, commands from compiled programs are converted to machine-code in advance. Due to this distinction, compiled code typically runs faster.
+    \item \textbf{Write the following hexadecimal (base-16) numbers in eight-digit binary (base-2) and three-digit decimal (base-10). Also, for each of the eight-digit binary representations, give the value of the most signifcant bit.}
+    
+    \begin{enumerate}[label=\textbf{\alph*}.]
+        \item \textbf{0x1E}
+        \begin{enumerate}
+            \item Eight-digit Binary (base-2): 00011110
+            \begin{itemize}
+                \item Most significant bit: 0
+            \end{itemize}
+            \item Three-digit Decimal (base-10): 30
+        \end{enumerate}
+        
+    \pagebreak
+        
+        \item \textbf{0x32}
+        \begin{enumerate}
+            \item Eight-digit Binary (base-2): 00110010
+            \begin{itemize}
+                \item Most significant bit: 0
+            \end{itemize}
+            \item Three-digit Decimal (base-10): 50
+        \end{enumerate}
+        
+        \item \textbf{0xFE}
+        \begin{enumerate}
+            \item Eight-digit Binary (base-2): 11111110
+            \begin{itemize}
+                \item Most significant bit: 1
+            \end{itemize}
+            \item Three-digit Decimal (base-10): 254
+        \end{enumerate}
+        
+        \item \textbf{0xC4}
+        \begin{enumerate}
+            \item Eight-digit Binary (base-2): 11000100
+            \begin{itemize}
+                \item Most significant bit: 1
+            \end{itemize}
+            \item Three-digit Decimal (base-10): 196
+        \end{enumerate}
+    \end{enumerate}
+    
+    \setcounter{enumi}{5}
+    \item \textbf{Assume that each byte of memory can be addressed by a 16-bit address, and every 16-bit address has a corresponding byte in memory. How many total bits of memory do you have?} \\
+    
+    16-bit address --- 65,536 possible bytes addressed, so \textbf{524,288 total bits of memory}.
+    
+    \item \textbf{Let ch be of type char.} 
+        \begin{enumerate}[label=\textbf{\alph*}.]
+            \item The assignment ch = ’k’ can be written equivalently using a number on the right side. What is that number? \\
+            107
+            \item The number for ’5’? \\
+            53
+            \item For ’=’? \\
+            61
+            \item For ’?’? \\
+            63
+        \end{enumerate}
+        
+    \item \textbf{What is the range of values for an unsigned char, short, and double data type?}
+        \begin{itemize}
+            \item unsigned char: 0 to 255
+            \item short: -32,768 to 32,767
+            \item double: $-2^{2048}$ to $2^{2048}$
+        \end{itemize}
+    
+    \pagebreak
+    \setcounter{enumi}{9}
+    \item \textbf{Explain the difference between unsigned and signed integers.} \\
+    \\
+    An unsigned integer does not include negative values in its range. Signed integers include negative values. The range for an unsigned integer is 0 to $2^{32}$ - 1, while the range for a signed integer is -($2^{31}$) to $2^{31}$ - 1.
+    
+    \item
+        \begin{enumerate}[label=\textbf{\alph*}.]
+            \item  \textbf{For integer math, give the pros and cons of using chars vs. ints.} \\
+            \\
+            Using chars rather than ints uses less memory and can result in faster computation time. However, with chars, the range of integer values is more limited and can lead to integer overflow.
+            \\
+            \item \textbf{For floating point math, give the pros and cons of using floats vs. doubles.} \\
+            \\
+            Using float rather than double uses less memory and can result in faster computation time. However, doubles will give greater precision in representation.
+            \\
+            \item \textbf{For integer math, give the pros and cons of using chars vs. floats.} \\
+            \\
+            Using chars rather than floats uses less memory and can result in faster computation time. However, chars are limited to smaller numbers and can lead to integer overflow. Using floats will allow for integer math with larger numbers. That said, floats will lead to longer computation time and can lead to decreased precision.
+        \end{enumerate}
+    
+    \setcounter{enumi}{15}
+    \item \textbf{Technically the data type of a pointer to a double is “pointer to type double.” Of the common integer and foating point data types discussed in this chapter, which is the most similar to this pointer type? Assume pointers occupy eight bytes.}\\
+    \\
+    unsigned long int --- this data type occupies 8 bytes and represents a non-negative integer, similar to the data type ``pointer to type double''
+    
+    \pagebreak
+    
+    \item \textbf{For each of the comments (a)-(g) above, give the contents (in hexadecimal) at the address ranges 0xB0..0xB3 (the unsigned int i), 0xB4..0xB7 (the unsigned int j), 0xB8 (the pointer kp), and 0xB9 (the pointer np), at that point in the program, after executing the line containing the comment.}
+        \begin{enumerate}[label=\textbf{\alph*}.]
+            \item unknown for all memory locations
+            \item
+            \begin{itemize}
+                \item 0xB0..0xB3: unknown
+                \item 0xB4..0xB7: unknown
+                \item 0xB8: 0xB0
+                \item 0xB9: unknown
+            \end{itemize}
+            \item
+            \begin{itemize}
+                \item 0xB0..0xB3: unknown
+                \item 0xB4..0xB7: unknown
+                \item 0xB8: 0xB0
+                \item 0xB9: unknown
+            \end{itemize}
+            \item
+            \begin{itemize}
+                \item 0xB0..0xB3: 0xAE
+                \item 0xB4..0xB7: unknown
+                \item 0xB8: 0xB0
+                \item 0xB9: unknown
+            \end{itemize}
+            \item
+            \begin{itemize}
+                \item 0xB0..0xB3: 0xAE
+                \item 0xB4..0xB7: unknown
+                \item 0xB8: 0xB0
+                \item 0xB9: 0xB0
+            \end{itemize}
+            \item
+            \begin{itemize}
+                \item 0xB0..0xB3: 0x12
+                \item 0xB4..0xB7: unknown
+                \item 0xB8: 0xB0
+                \item 0xB9: 0xB0
+            \end{itemize}
+            \item
+            \begin{itemize}
+                \item 0xB0..0xB3: 0x12
+                \item 0xB4..0xB7: 0x12
+                \item 0xB8: 0xB0
+                \item 0xB9: 0xB0
+            \end{itemize}
+        \end{enumerate}
+    
+\end{enumerate}
+
+\end{document}
